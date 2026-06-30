@@ -33,8 +33,12 @@ android {
 
     externalNativeBuild {
         cmake {
-            path    = file("src/main/cpp/CMakeLists.txt")
-            version = "3.31.4"
+            path = file("src/main/cpp/CMakeLists.txt")
+            // No pinned "version" here on purpose: pinning to an exact CMake
+            // version (e.g. "3.31.4") makes the build fail on any CI/dev
+            // machine whose Android SDK doesn't have that exact version
+            // pre-installed ([CXX1300] CMake 'X.Y.Z' was not found).
+            // Omitting it lets AGP pick/download a compatible CMake automatically.
         }
     }
 
